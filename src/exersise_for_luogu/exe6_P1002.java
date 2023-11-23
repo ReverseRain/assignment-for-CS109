@@ -2,7 +2,7 @@ package exersise_for_luogu;
 
 import java.util.Scanner;
 
-public class exe6_P1002 {//经典dq题目，多看别人的题解思路！
+public class exe6_P1002 {//经典dq题目，多看别人的题解思路！ 动态规划
     public static void main(String[] args) {
         long[][] f=new long[40][40];//要开long类型的数组，否则长度会溢出；
         Boolean[][] s=new Boolean[40][40];
@@ -27,14 +27,25 @@ public class exe6_P1002 {//经典dq题目，多看别人的题解思路！
         // II.数组的第一维可以简化维两个元素0,1，因为i % 2=(i−1) % 2
         //这种方法中，电脑将只存储两个数据：分别是上方与下方；
         // 注意在这种方法中所动用的维度只有1和0，所以初始化时应当初始（-1.0）
-        for (int i = 2; i <=bx ; i++) {
-            for (int j = 2; j <=by ; j++) {
+//        for (int i = 2; i <=bx ; i++) {
+//            for (int j = 2; j <=by ; j++) {
+//                if (s[i][j]!=null){
+//                    f[i&1][j]=0;
+//                }else f[i&1][j]=f[(i-1)&1][j]+f[i&1][j-1];
+//            }
+//        }
+        //第三种，考虑将f(x,y)化简成f(x)，既f(y)=f(y)+f(y-1)
+        long g[]=new long[40];
+        g[2]=1;
+        for (int i = 2; i <=bx; i++) {
+            for (int j = 2; j <=by; j++) {
                 if (s[i][j]!=null){
-                    f[i&1][j]=0;
-                }else f[i&1][j]=f[(i-1)&1][j]+f[i&1][j-1];
+                    g[j]=0;
+                }else g[j]=g[j]+g[j-1];
             }
         }
+        System.out.println(g[by]);
 //        System.out.println(f[bx][by]);
-        System.out.println(f[bx&1][by]);
+//        System.out.println(f[bx&1][by]);
     }
 }
